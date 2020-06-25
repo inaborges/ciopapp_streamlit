@@ -54,7 +54,34 @@ st.subheader('2016')
 data2016: object = pd.read_csv('2016-improved-property-sales.csv')
 st.write(data2016.head())
 
+total_sales_2016 = data2016['Sale Price '].sum().round()
+total_cm_2016 = data2016['Total Mgt. Expenses'].sum().round()
+year_r_2016 = total_sales_2016 - total_cm_2016
+
+if st.button('Total Sales 2016'):
+    st.write(total_sales_2016)
+
+if st.button('Total Management Expenses 2016'):
+    st.write(total_cm_2016)
+
+if st.button('2016 Years Result'):
+    st.write(year_r_2016)
+
+#Data Sample and buttons 2017
 st.subheader('2017')
 
 data2017: object = pd.read_csv('2017-improved-property-sales.csv')
 st.write(data2017.head())
+
+total_sales_2017 = data2017['Sale Price '].sum().round()
+total_cm_2017 = data2017['Total Mgt. Expenses'].sum().round()
+year_r_2017 = total_sales_2017 - total_cm_2017
+
+if st.button('Total Sales 2017'):
+    st.write(total_sales_2017)
+
+if st.button('Total Management Expenses 2017'):
+    st.write(total_cm_2017)
+
+if st.button('2017 Years Result'):
+    st.write(year_r_2017)
