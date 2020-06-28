@@ -3,6 +3,8 @@ import streamlit as st
 
 
 #Future improvement
+from plotly.graph_objs.layout import grid
+
 st.sidebar.header("About me ""💬")
 
 st.sidebar.markdown("""
@@ -11,7 +13,7 @@ Hi, my name is Marina.
 I'm a Data Science Student 
 and this is my first Streamlit App.
 
-You can find my LinkedIn and GitHub below, 
+You can find my LinkedIn and GitHub links below, 
 feel free to keep in touch.
 
 """)
@@ -25,11 +27,17 @@ st.sidebar.markdown("""
 
 """)
 
-st.sidebar.subheader("Goals for this project")
+st.sidebar.subheader("Goals for this project " "💜")
 
 st.sidebar.markdown("""
 
+- Put the buttons in the same row
+- Download the datasets option
+- Choose the dataset to display option
+- Add charts
+
 This project is part of the 10 weeks Data Science BootCamp, from [Codenation](https://codenation.dev/).
+
 
 """)
 
@@ -116,8 +124,7 @@ if st.button('2017 Years Result'):
     st.write(year_r_2017)
 
 
-data_chart_2017 = data2017['Sale Price'].tolist()
-st.bar_chart(data_chart_2017)
+
 
 
 
