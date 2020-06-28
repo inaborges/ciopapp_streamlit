@@ -3,7 +3,7 @@ import streamlit as st
 
 
 #Future improvement
-from plotly.graph_objs.layout import grid
+#from plotly.graph_objs.layout import grid
 
 st.sidebar.header("About me ""💬")
 
