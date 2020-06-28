@@ -1,13 +1,42 @@
 import pandas as pd
 import streamlit as st
 
-#st.sidebar.header("Choose the year")
 
+#Future improvement
+st.sidebar.header("About me ""💬")
+
+st.sidebar.markdown("""
+
+Hi, my name is Marina. 
+I'm a Data Science Student 
+and this is my first Streamlit App.
+
+You can find my LinkedIn and GitHub below, 
+feel free to keep in touch.
+
+""")
+
+st.sidebar.subheader("Social ""🙋‍♀")
+st.sidebar.markdown("""
+
+[LinkedIn](https://www.linkedin.com/in/marinahsborges/)
+
+[GitHub](https://github.com/inaborges)
+
+""")
+
+st.sidebar.subheader("Goals for this project")
+
+st.sidebar.markdown("""
+
+This project is part of the 10 weeks Data Science BootCamp, from [Codenation](https://codenation.dev/).
+
+""")
 
 
 st.image('milwaukee_city.jpg', width=680)
 st.write(' ## Number of City-Owned Improved Properties by Year')
-st.write("This apps is a walk trough Milwaukee City Owned Houses sales and total management costs between 2014 and 2017")
+st.write("This apps is a data explorer for Milwaukee City Owned Houses sales and total management costs between 2014 and 2017.")
 st.write(" ## **Data Sample by Year** ")
 
 #Data Sample and buttons 2014
@@ -73,7 +102,7 @@ st.subheader('2017')
 data2017: object = pd.read_csv('2017-improved-property-sales.csv')
 st.write(data2017.head())
 
-total_sales_2017 = data2017['Sale Price '].sum().round()
+total_sales_2017 = data2017['Sale Price'].sum().round()
 total_cm_2017 = data2017['Total Mgt. Expenses'].sum().round()
 year_r_2017 = total_sales_2017 - total_cm_2017
 
@@ -85,3 +114,10 @@ if st.button('Total Management Expenses 2017'):
 
 if st.button('2017 Years Result'):
     st.write(year_r_2017)
+
+
+data_chart_2017 = data2017['Sale Price'].tolist()
+st.bar_chart(data_chart_2017)
+
+
+
