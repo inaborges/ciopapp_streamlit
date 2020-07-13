@@ -95,6 +95,8 @@ def main():
         else:
             st.write(df.shape)
 
+
+
     #Select columns
     st.write("**Selected dataset columns**")
     if st.checkbox("Select columns to show"):
