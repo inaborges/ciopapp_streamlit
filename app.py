@@ -69,7 +69,7 @@ def main():
     filename = file_selector()
     st.info("You selected {}".format(filename))
 
-    #Read data
+    #Read data function
     df = pd.read_csv(filename)
 
     #Show dataset
