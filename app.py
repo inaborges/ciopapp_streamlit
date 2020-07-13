@@ -1,10 +1,17 @@
-import pandas as pd
 import streamlit as st
+import os
 
+#EDA packages
+import pandas as pd
+import numpy as np
 
-#Future improvement
-from plotly.graph_objs.layout import grid
+#Visualization packages
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+import seaborn as sns
 
+#Sidebar
 st.sidebar.header("About me ""💬")
 
 st.sidebar.markdown("""
@@ -13,8 +20,7 @@ Hi, my name is Marina.
 I'm a Data Science Student 
 and this is my first Streamlit App.
 
-You can find my LinkedIn and GitHub links below, 
-feel free to keep in touch.
+You can find my LinkedIn and GitHub profile links below.
 
 """)
 
@@ -31,98 +37,105 @@ st.sidebar.subheader("Goals for this project " "💜")
 
 st.sidebar.markdown("""
 
-- Put the buttons in the same row
-- Download the datasets option
-- Choose the dataset to display option
-- Add charts
+- ❌ Put the buttons in the same row
+- ❌ Create download datasets option
+- :heavy_check_mark: Create choose dataset to display option
+- :heavy_check_mark: Add charts
 
 This project is part of the 10 weeks Data Science BootCamp, from [Codenation](https://codenation.dev/).
 
 
 """)
+#End of sidebar section
+
+
+#Main app
+
 
 
 st.image('milwaukee_city.jpg', width=680)
 st.write(' ## Number of City-Owned Improved Properties by Year')
 st.write("This apps is a data explorer for Milwaukee City Owned Houses sales and total management costs between 2014 and 2017.")
-st.write(" ## **Data Sample by Year** ")
+#st.write(" ## **Data Sample by Year** ")
 
-#Data Sample and buttons 2014
-st.subheader('2014')
+def main():
 
-data2014: object = pd.read_csv('2014-improved-property-sales.csv')
-st.write(data2014.head())
 
-total_sales_2014 = data2014['Sale Price'].sum().round()
-total_cm_2014 = data2014['Total Mgt. Expenses'].sum().round()
-year_r_2014 = total_sales_2014 - total_cm_2014
+    def file_selector(folder_path='./datasets'):
+        filenames = os.listdir(folder_path)
+        selected_filename = st.selectbox("Select a file", filenames)
+        return os.path.join(folder_path, selected_filename)
 
-if st.button('Total Sales 2014'):
-    st.write(total_sales_2014)
+    filename = file_selector()
+    st.info("You selected {}".format(filename))
 
-if st.button('Total Management Expenses 2014'):
-    st.write(total_cm_2014)
+    #Read data
+    df = pd.read_csv(filename)
 
-if st.button('2014 Years Result'):
-    st.write(year_r_2014)
+    #Show dataset
+    if st.checkbox("Show Dataset"):
+        number = st.number_input("Number of Rows to View",1)
+        st.dataframe(df.head(number))
 
-#Data Sample and buttons 2015
-st.subheader('2015')
+    #Show columns
+    st.write("**Selected dataset column names**")
+    if st.button("Column Names"):
+        st.write(df.columns)
 
-data2015: object = pd.read_csv('2015-improved-property-sales.csv')
-st.write(data2015.head())
+    #Show shape
+    st.write("**Selected dataset shape**")
+    if st.checkbox("Shape of Dataset"):
+        data_dim = st.radio("Show dimension by", ("Rows","Columns"))
+        if data_dim == 'Rows':
+            st.text("Number of Rows")
+            st.write(df.shape[0])
+        elif data_dim == 'Columns':
+            st.text("Number of Columns")
+            st.write(df.shape[1])
+        else:
+            st.write(df.shape)
 
-total_sales_2015 = data2015['Sale Price'].sum().round()
-total_cm_2015 = data2015['Total Mgt. Expenses'].sum().round()
-year_r_2015 = total_sales_2015 - total_cm_2015
+    #Select columns
+    st.write("**Selected dataset columns**")
+    if st.checkbox("Select columns to show"):
+        all_columns = df.columns.tolist()
+        selected_columns = st.multiselect("Select", all_columns)
+        new_df = df[selected_columns]
+        st.dataframe(new_df)
 
-if st.button('Total Sales 2015'):
-    st.write(total_sales_2015)
+    #Show datatypes
+    st.write("**Selected dataset datatypes**")
+    if st.button("Data Types"):
+        st.write(df.dtypes)
 
-if st.button('Total Management Expenses 2015'):
-    st.write(total_cm_2015)
 
-if st.button('2015 Years Result'):
-    st.write(year_r_2015)
+    #Plot and visualization
+    st.subheader("Data Visualization")
+    all_columns_names = df.columns.tolist()
+    type_of_plot = st.selectbox("Select the type of Plot", ["area", "bar", "hist", "kde"])
+    selected_column_names = st.multiselect("Select Columns to Plot", all_columns_names)
 
-#Data Sample and buttons 2016
-st.subheader('2016')
+    if st.button("Generate Plot"):
+        st.success("Generating Customizable Plot of {} for {} ".format(type_of_plot, selected_column_names))
 
-data2016: object = pd.read_csv('2016-improved-property-sales.csv')
-st.write(data2016.head())
+        #Plots by Streamlit:
+        if type_of_plot == 'area':
+            cust_data = df[selected_column_names]
+            st.area_chart(cust_data)
 
-total_sales_2016 = data2016['Sale Price '].sum().round()
-total_cm_2016 = data2016['Total Mgt. Expenses'].sum().round()
-year_r_2016 = total_sales_2016 - total_cm_2016
+        elif type_of_plot == 'bar':
+            cust_data = df[selected_column_names]
+            st.bar_chart(cust_data)
 
-if st.button('Total Sales 2016'):
-    st.write(total_sales_2016)
+        elif type_of_plot:
+            cust_plot = df[selected_column_names].plot(kind=type_of_plot)
+            st.write(cust_plot)
+            st.pyplot()
 
-if st.button('Total Management Expenses 2016'):
-    st.write(total_cm_2016)
 
-if st.button('2016 Years Result'):
-    st.write(year_r_2016)
 
-#Data Sample and buttons 2017
-st.subheader('2017')
-
-data2017: object = pd.read_csv('2017-improved-property-sales.csv')
-st.write(data2017.head())
-
-total_sales_2017 = data2017['Sale Price'].sum().round()
-total_cm_2017 = data2017['Total Mgt. Expenses'].sum().round()
-year_r_2017 = total_sales_2017 - total_cm_2017
-
-if st.button('Total Sales 2017'):
-    st.write(total_sales_2017)
-
-if st.button('Total Management Expenses 2017'):
-    st.write(total_cm_2017)
-
-if st.button('2017 Years Result'):
-    st.write(year_r_2017)
-
+if __name__ == '__main__':
+    main()
 
 
 
