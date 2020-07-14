@@ -7,7 +7,7 @@ import numpy as np
 
 #Visualization packages
 #import matplotlib.pyplot as plt
-import matplotlib
+#import matplotlib
 #matplotlib.use('Agg')
 #import seaborn as sns
 
@@ -114,7 +114,7 @@ def main():
     #Plot and visualization
     st.subheader("Data Visualization")
     all_columns_names = df.columns.tolist()
-    type_of_plot = st.selectbox("Select the type of Plot", ["area", "bar", "hist","kde"])
+    type_of_plot = st.selectbox("Select the type of Plot", ["area", "bar"])
     selected_column_names = st.multiselect("Select Columns to Plot", all_columns_names)
 
     if st.button("Generate Plot"):
@@ -129,10 +129,10 @@ def main():
             cust_data = df[selected_column_names]
             st.bar_chart(cust_data)
 
-        elif type_of_plot:
-            cust_plot = df[selected_column_names].plot(kind=type_of_plot)
-            st.write(cust_plot)
-            st.pyplot()
+        #elif type_of_plot:
+            #cust_plot = df[selected_column_names].plot(kind=type_of_plot)
+            #st.write(cust_plot)
+            #st.pyplot()
 
 
 
