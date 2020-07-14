@@ -6,10 +6,10 @@ import pandas as pd
 import numpy as np
 
 #Visualization packages
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg')
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import matplotlib
+#matplotlib.use('Agg')
+#import seaborn as sns
 
 #Sidebar
 st.sidebar.header("About me ""💬")
