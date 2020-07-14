@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 #Visualization packages
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #import matplotlib
 #matplotlib.use('Agg')
 #import seaborn as sns
@@ -114,7 +114,7 @@ def main():
     #Plot and visualization
     st.subheader("Data Visualization")
     all_columns_names = df.columns.tolist()
-    type_of_plot = st.selectbox("Select the type of Plot", ["area", "bar", "hist", "kde"])
+    type_of_plot = st.selectbox("Select the type of Plot", ["area", "bar", "hist","kde"])
     selected_column_names = st.multiselect("Select Columns to Plot", all_columns_names)
 
     if st.button("Generate Plot"):
